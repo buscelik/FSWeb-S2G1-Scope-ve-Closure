@@ -15,10 +15,14 @@
  * Bu fonskiyon 'asas' dönmeli(return)
 */
 
+
 function ilkiniDon(stringArray, callback) {
-  return callback(stringArray[0])
+  return callback(stringArray[0]);
 }
-console.log('örnek görev:', ilkiniDon(['as','sa'],function(metin){return metin+metin}));
+
+let sonuc = ilkiniDon(['as', 'sa'], function(metin) {
+  return metin + metin;
+});
 
 // Başlangıç Challenge'ı Sonu
 
@@ -52,7 +56,21 @@ let skor = 0;
 function skor2() {
   return skor++;
 }
+/*
+1-) skor1 ve skor2 arasındaki farklar şunlardır:
 
+Scope: skor1 bir kapanış fonksiyonu (closure) kullanırken, skor2 global bir değişkeni kullanır.
+
+3-)skor1 tercih edilir:
+
+Değişkenin özgüllüğü önemlidir ve başka bir yerden erişilmesini istemiyorsak.
+Değişkenin güvenliği ve gizliliği önemlidir ve sadece belirli bir fonksiyon aracılığıyla erişilmesini istiyorsak.
+
+skor2 tercih edilir:
+
+Değişkenin global bir kapsama sahip olması gerekiyorsa ve birçok farklı yerden erişilmesi ve kullanılması gerekiyorsa.
+Değişkenin basit bir yapıya sahip olması gerekiyorsa ve kapsamlı kontrol veya gizlilik önemli değilse.
+*/
 
 /* Görev 2: takimSkoru() 
 Aşağıdaki takimSkoru() fonksiyonununda aşağıdakileri yapınız:
@@ -64,10 +82,12 @@ Aşağıdaki takimSkoru() fonksiyonununda aşağıdakileri yapınız:
 Not: Bu fonskiyon, aşağıdaki diğer görevler için de bir callback fonksiyonu olarak da kullanılacak
 */
 
-function takimSkoru(/*Kodunuzu buraya yazınız*/){
-    /*Kodunuzu buraya yazınız*/
+function takimSkoru() {
+  const minSkor = 10;
+  const maxSkor = 25;
+  const skor = Math.floor(Math.random() * (maxSkor - minSkor + 1)) + minSkor;
+  return skor;
 }
-
 
 
 
@@ -85,11 +105,22 @@ Aşağıdaki macSonucu() fonksiyonununda aşağıdakileri yapınız:
   "KonukTakim": 80
 }
 */ 
+function macSonucu(takimSkoruCallback, ceyrekSayisi) {
+  const sonuc = {
+    "EvSahibi": 0,
+    "KonukTakim": 0
+  };
 
-function macSonucu(/*Kodunuzu buraya yazınız*/){
-  /*Kodunuzu buraya yazınız*/
+  for (let i = 1; i <= ceyrekSayisi; i++) {
+    const evSahibiSkor = takimSkoruCallback();
+    const konukTakimSkor = takimSkoruCallback();
+
+    sonuc.EvSahibi += evSahibiSkor;
+    sonuc.KonukTakim += konukTakimSkor;
+  }
+
+  return sonuc;
 }
-
 
 
 
@@ -108,10 +139,16 @@ Aşağıdaki periyotSkoru() fonksiyonununda aşağıdakileri yapınız:
 }
   */
 
+function periyotSkoru(takimSkoruCallback) {
+  const EvSahibiSkor = takimSkoruCallback();
+  const KonukTakimSkor = takimSkoruCallback();
 
-function periyotSkoru(/*Kodunuzu buraya yazınız*/) {
-  /*Kodunuzu buraya yazınız*/
+  const skor = {
+    "EvSahibi": EvSahibiSkor,
+    "KonukTakim": KonukTakimSkor
+  };
 
+  return skor;
 }
 
 
